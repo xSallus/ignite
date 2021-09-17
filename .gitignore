@@ -69,8 +69,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
-.env.test
+.env*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -101,4 +100,8 @@ dist
 .dynamodb/
 
 # TernJS port file
-.tern-port
+.tern-
+
+# ReactJS
+**/**/node_modules/
+**/**/build/
