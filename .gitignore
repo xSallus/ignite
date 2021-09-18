@@ -105,3 +105,4 @@ dist
 # ReactJS
 **/**/node_modules/
 **/**/build/
+**/**/.vscode
