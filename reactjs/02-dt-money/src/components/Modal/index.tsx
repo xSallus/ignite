@@ -2,6 +2,7 @@ import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import Modal from 'react-modal';
 import { Transaction } from 'src/@types';
 import { useTransactions } from '../../contexts/Transactions';
+import {Container} from './styles';
 
 const modalStyle = {
   content: {
@@ -26,6 +27,7 @@ function TransactionModal() {
     editingTransaction
   } = useTransactions();
 
+  const [active, setActive] = useState('income');
   const [newTransaction, setNewTransaction] = useState<Transaction>(editingTransaction);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -58,25 +60,41 @@ function TransactionModal() {
       onRequestClose={() => toggleModalOpen('add')}
     >
       {modalType === 'add' && (
-        <div>
+        <Container>
+          <div>
+            <h2>New transaction</h2>
+            <button>
+              <p>x</p>
+            </button>
+          </div>
           <form onSubmit={handleSubmitNewTransaction}>
-            <input onChange={handleChange} type="text" name="description" />
-            <input onChange={handleChange} type="text" name="amount" />
+            <input placeholder="Description" onChange={handleChange} type="text" name="description" />
+            <input placeholder="Amount" onChange={handleChange} type="text" name="amount" />
             <div>
               <button
                 type="button"
-                onClick={() =>handleChangeNewTransactionCategory('income')}
+                name="income"
+                className={active === 'income' ? 'active' : ''}
+                onClick={() => {
+                  handleChangeNewTransactionCategory('income');
+                  setActive('income');
+                }}
               >
                 Income
               </button>
               <button
                 type="button"
-                onClick={() =>handleChangeNewTransactionCategory('expense')}
+                name="expense"
+                className={active === 'expense' ? 'active' : ''}
+                onClick={() => {
+                  handleChangeNewTransactionCategory('expense');
+                  setActive('expense');
+                }}
               >
                 Expense
               </button>
             </div>
-            <input onChange={handleChange} type="text" name="category" />
+            <input placeholder="Category" onChange={handleChange} type="text" name="category" />
             <input onChange={handleChange} type="date" name="date" />
             <button type="submit">
               Add transaction
@@ -85,7 +103,7 @@ function TransactionModal() {
           <button type="button" onClick={() => setModalType('delete')}>
             Delete transaction
           </button>
-        </div>
+        </Container>
       )}
       {modalType === 'edit' && <h1>{modalType}</h1>}
       {modalType === 'delete' && <h1>{modalType}</h1>}
