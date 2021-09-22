@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { Dispatch, ReactNode, SetStateAction, FormEvent } from 'react';
 
 interface CardProps {
   icon?: string;
@@ -36,8 +36,11 @@ interface ContextData {
   toggleModalOpen: (action:ModalAction='add', transaction?:Transaction)=>void;
 
   editingTransaction: Transaction;
+  setEditingTransaction: Dispatch<SetStateAction<Transaction>>;
 
   addNewTransaction: (transaction:Transaction)=>void;
+  handleSubmitEditingTransaction: (e: FormEvent)=>void;
+  handleDeleteTransaction: ()=>void;
 }
 
 export { CardProps, Transaction, ITotals, ContextData, ProviderProps };
