@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, FormEvent } from 'react';
 import { Transaction, ITotals, ContextData, ProviderProps, ModalAction } from '../@types';
 
 const TransactionsContext = createContext({} as ContextData);
@@ -56,10 +56,28 @@ function TransactionsProvider({ children }: ProviderProps) {
   function addNewTransaction(transaction:Transaction) {
     const alteredTransactions = [...transactions, {
       ...transaction,
-      id: transactions.length+1
+      id: Date.now()
     }];
     setTransactions(alteredTransactions);
     setIsModalOpen(false);
+    toggleModalOpen();
+  }
+
+  function handleSubmitEditingTransaction(e: FormEvent) {
+    e.preventDefault();
+
+    const newTransactions = transactions.map(transaction => editingTransaction.id === transaction.id ? editingTransaction : transaction);
+
+    setTransactions(newTransactions);
+    toggleModalOpen();
+  }
+
+  function handleDeleteTransaction() {
+    const {id} = editingTransaction;
+    const filteredTransactions = transactions.filter(transaction => transaction.id !== id);
+
+    setTransactions(filteredTransactions);
+    toggleModalOpen();
   }
 
   useEffect(()=>{
@@ -92,8 +110,11 @@ function TransactionsProvider({ children }: ProviderProps) {
       toggleModalOpen,
 
       editingTransaction,
+      setEditingTransaction,
 
-      addNewTransaction
+      addNewTransaction,
+      handleSubmitEditingTransaction,
+      handleDeleteTransaction
     }}>
       {children}
     </TransactionsContext.Provider>
