@@ -1,6 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useContext, useEffect, useState, FormEvent } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { api } from 'src/services';
 import { Transaction, ITotals, ContextData, ProviderProps, ModalAction } from '../@types';
+
+type ResponseData = {
+  transactions:Transaction[];
+}
 
 const TransactionsContext = createContext({} as ContextData);
 
@@ -9,36 +14,7 @@ function TransactionsProvider({ children }: ProviderProps) {
   const [modalType, setModalType] = useState('');
   const [editingTransaction, setEditingTransaction] = useState<Transaction>({} as Transaction);
 
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    {
-      id: 1,
-      description: 'Website',
-      category: 'income',
-      amount: 2005500,
-      date: '01-05-2021T00:00:00',
-    },
-    {
-      id: 2,
-      description: 'Salad',
-      category: 'expense',
-      amount: 2055,
-      date: '01-05-2021T00:00:00',
-    },
-    {
-      id: 3,
-      description: 'Desapego coputer',
-      category: 'income',
-      amount: 205500,
-      date: '01-05-2021T00:00:00',
-    },
-    {
-      id: 4,
-      description: 'Cafe com pastel',
-      category: 'expense',
-      amount: 550,
-      date: '01-05-2021T00:00:00'
-    }
-  ]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   const [transactionTotals, setTransactionTotals] = useState<ITotals>({
     deposits: 0,
@@ -50,35 +26,62 @@ function TransactionsProvider({ children }: ProviderProps) {
     setIsModalOpen(!isModalOpen);
     setModalType(action);
     setEditingTransaction(transaction||{} as Transaction);
-    console.log(transaction?.id);
   };
 
-  function addNewTransaction(transaction:Transaction) {
-    const alteredTransactions = [...transactions, {
-      ...transaction,
-      id: Date.now()
-    }];
-    setTransactions(alteredTransactions);
+  function readData() {
+    api.get('/transactions').then(res => {
+      const { transactions } = res.data as ResponseData;
+      let deposits = 0;
+      let withdraws = 0;
+
+      transactions.forEach(item => {
+        if (item.category === 'deposit') {
+          deposits += item.amount;
+        }
+
+        if (item.category === 'withdraw') {
+          withdraws += item.amount;
+        }
+      })
+
+      const totals = {
+        deposits: deposits,
+        withdraws: withdraws,
+        total: deposits-withdraws
+      }
+
+      setTransactionTotals(totals);
+      setTransactions(transactions);
+    });
+  }
+
+  function createTransaction(transaction:Transaction) {
+    const newTransaction = {...transaction, id: Date.now()};
+
+    api.post('/transactions', newTransaction);
+    setTimeout(() => readData(), 500);
+
     setIsModalOpen(false);
+  }
+
+  function updateTransaction() {
+    api.put(`/transactions/${editingTransaction.id}`, editingTransaction);
+
+    setTimeout(() => readData(), 500);
     toggleModalOpen();
   }
 
-  function handleSubmitEditingTransaction(e: FormEvent) {
-    e.preventDefault();
-
-    const newTransactions = transactions.map(transaction => editingTransaction.id === transaction.id ? editingTransaction : transaction);
-
-    setTransactions(newTransactions);
-    toggleModalOpen();
-  }
-
-  function handleDeleteTransaction() {
+  function deleteTransaction() {
     const {id} = editingTransaction;
-    const filteredTransactions = transactions.filter(transaction => transaction.id !== id);
+    api.delete(`/transactions/${id}`);
 
-    setTransactions(filteredTransactions);
+    setTimeout(() => readData(), 500);
     toggleModalOpen();
   }
+
+  useEffect(() => {
+    readData();
+  }, []);
 
   useEffect(()=>{
     transactions.forEach(transaction => {
@@ -112,9 +115,9 @@ function TransactionsProvider({ children }: ProviderProps) {
       editingTransaction,
       setEditingTransaction,
 
-      addNewTransaction,
-      handleSubmitEditingTransaction,
-      handleDeleteTransaction
+      createTransaction,
+      updateTransaction,
+      deleteTransaction
     }}>
       {children}
     </TransactionsContext.Provider>

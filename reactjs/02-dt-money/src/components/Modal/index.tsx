@@ -1,7 +1,8 @@
-import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import Modal from 'react-modal';
 import { Transaction } from 'src/@types';
 import { useTransactions } from '../../contexts/Transactions';
+import CloseIcon from '../../assets/close.svg';
 import { Container } from './styles';
 
 const modalStyle = {
@@ -22,11 +23,11 @@ function TransactionModal() {
     isModalOpen,
     modalType,
     toggleModalOpen,
-    addNewTransaction,
+    createTransaction,
     editingTransaction,
     setEditingTransaction,
-    handleSubmitEditingTransaction,
-    handleDeleteTransaction,
+    updateTransaction,
+    deleteTransaction,
   } = useTransactions();
 
   const [active, setActive] = useState('income');
@@ -50,7 +51,7 @@ function TransactionModal() {
 
   function handleSubmitNewTransaction(e: FormEvent) {
     e.preventDefault();
-    addNewTransaction(newTransaction);
+    createTransaction(newTransaction);
   }
 
   function handleEditTransaction(e: ChangeEvent<HTMLInputElement>) {
@@ -69,7 +70,11 @@ function TransactionModal() {
     });
   }
 
-  useEffect(() => console.log(newTransaction), [newTransaction]);
+  function handleSubmitEditedTransaction(e: FormEvent) {
+    e.preventDefault();
+    console.log(editingTransaction);
+    updateTransaction();
+  }
 
   return (
     <Modal
@@ -81,7 +86,7 @@ function TransactionModal() {
         <div>
           <h2>New transaction</h2>
           <button onClick={()=>toggleModalOpen()}>
-            <p>x</p>
+            <img src={CloseIcon}  alt="close buton" />
           </button>
         </div>
         {modalType === 'add' && (
@@ -92,27 +97,26 @@ function TransactionModal() {
               <button
                 type="button"
                 name="income"
-                className={active === 'income' ? 'active' : ''}
+                className={active === 'deposit' ? 'active' : ''}
                 onClick={() => {
-                  handleChangeNewTransactionCategory('income');
-                  setActive('income');
+                  handleChangeNewTransactionCategory('deposit');
+                  setActive('deposit');
                 }}
               >
-                Income
+                Deposit
               </button>
               <button
                 type="button"
                 name="expense"
-                className={active === 'expense' ? 'active' : ''}
+                className={active === 'withdraw' ? 'active' : ''}
                 onClick={() => {
-                  handleChangeNewTransactionCategory('expense');
-                  setActive('expense');
+                  handleChangeNewTransactionCategory('withdraw');
+                  setActive('withdraw');
                 }}
               >
-                Expense
+                Withdraw
               </button>
             </div>
-            <input placeholder="Category" onChange={handleChange} type="text" name="category" />
             <input onChange={handleChange} type="date" name="date" />
             <button type="submit">
               Add transaction
@@ -120,7 +124,7 @@ function TransactionModal() {
           </form>
         )}
         {modalType === 'edit' && (
-          <form onSubmit={handleSubmitEditingTransaction}>
+          <form onSubmit={handleSubmitEditedTransaction}>
             <input
               placeholder="Description"
               value={editingTransaction.description}
@@ -139,27 +143,26 @@ function TransactionModal() {
               <button
                 type="button"
                 name="income"
-                className={editingTransaction.category === 'income' ? 'active' : ''}
-                onClick={() => handleChangeEditingTransactionCategory('income')}
+                className={editingTransaction.category === 'deposit' ? 'active' : ''}
+                onClick={() => {
+                  handleChangeEditingTransactionCategory('deposit');
+                  setActive('deposit');
+                }}
               >
-                Income
+                Deposit
               </button>
               <button
                 type="button"
                 name="expense"
-                className={editingTransaction.category === 'expense' ? 'active' : ''}
-                onClick={() => handleChangeEditingTransactionCategory('expense')}
+                className={editingTransaction.category === 'withdraw' ? 'active' : ''}
+                onClick={() => {
+                  handleChangeEditingTransactionCategory('withdraw');
+                  setActive('withdraw');
+                }}
               >
-                Expense
+                Withdraw
               </button>
             </div>
-            <input
-              placeholder="Category"
-              value={editingTransaction.category}
-              onChange={handleEditTransaction}
-              type="text"
-              name="category"
-            />
             <input
               onChange={handleEditTransaction}
               value={editingTransaction.date}
@@ -174,7 +177,7 @@ function TransactionModal() {
         <button
           type="button"
           disabled={modalType === 'add'}
-          onClick={handleDeleteTransaction}
+          onClick={deleteTransaction}
         >Delete transaction</button>
       </Container>
     </Modal>

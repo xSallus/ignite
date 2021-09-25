@@ -17,12 +17,12 @@ export const Table = styled.table`
     &:hover {
       filter: brightness(0.9);
 
-      &.expense {
+      &.withdraw {
         border: 1px solid var(--red);
         box-shadow: 2px 2px 2px 2px rgba(255,0,0,0.18);
       }
 
-      &.income {
+      &.deposit {
         border: 1px solid var(--green);
         box-shadow: 2px 2px 2px 2px rgba(0,255,0,0.18);
       }
@@ -60,11 +60,11 @@ export const Table = styled.table`
         }
       }
 
-      &.expense {
+      &.withdraw {
         color: var(--red);
       }
 
-      &.income {
+      &.deposit {
         color: var(--green);
       }
     }

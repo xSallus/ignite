@@ -37,19 +37,19 @@ export const Container = styled.div<ContainerProps>`
     margin-left: 1.8rem;
   }
 
-  &.expenses {
+  &.withdraws {
     strong {
       color: var(--red);
     }
   }
 
-  &.incomes {
+  &.deposits {
     strong {
       color: var(--green);
     }
   }
 
-  &.total {
+  &.balance {
     background: ${(props) => props.amount>=0 ? 'var(--green)' : 'var(--red)'};
  
     span, strong {

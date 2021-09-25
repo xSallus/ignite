@@ -33,17 +33,16 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 0;
 
-      p {
+      img {
         margin: -2px 2px 0;
-        font-weight: 600;
-        color: var(--text);
-        font-size: 1.5rem;
+        height: 1rem;
       }
 
       &:hover {
-        p {
-          color: var(--title);
+        img {
+          filter: sepia(15) saturate(15) hue-rotate(90deg);
         }
       }
     }

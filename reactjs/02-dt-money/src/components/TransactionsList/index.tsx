@@ -1,12 +1,23 @@
+import { useState, useEffect } from 'react';
 import { useTransactions } from '../../contexts/Transactions';
 import { formatAmount, formatDate } from '../../tools';
+
+import LoadGif from '../../assets/loading.gif';
 import { Table } from './styles';
 
 function TransactionsList() {
   const { transactions, toggleModalOpen } = useTransactions();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
 
   return (
-    <Table>
+    <>
+      {
+        loading ? <img src={LoadGif} alt="Loading" /> : (
+          <Table>
       <thead>
         <tr>
           <th>Description</th>
@@ -35,6 +46,9 @@ function TransactionsList() {
         }
       </tbody>
     </Table>
+        )
+      }
+    </>
   );
 }
 

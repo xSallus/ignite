@@ -38,9 +38,9 @@ interface ContextData {
   editingTransaction: Transaction;
   setEditingTransaction: Dispatch<SetStateAction<Transaction>>;
 
-  addNewTransaction: (transaction:Transaction)=>void;
-  handleSubmitEditingTransaction: (e: FormEvent)=>void;
-  handleDeleteTransaction: ()=>void;
+  createTransaction: (transaction:Transaction)=>void;
+  updateTransaction: ()=>void;
+  deleteTransaction: ()=>void;
 }
 
 export { CardProps, Transaction, ITotals, ContextData, ProviderProps };

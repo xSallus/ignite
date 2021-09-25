@@ -12,9 +12,9 @@ function Dashboard() {
   return (
     <Container>
       <section>
-        <Card title="expenses" amount={(transactionTotals.withdraws*(-1))} icon={ExpenseIcon} />
-        <Card title="incomes" amount={transactionTotals.deposits} icon={IncomeIcon} />
-        <Card title="total" amount={transactionTotals.total} icon={TotalIcon} />
+        <Card title="deposits" amount={transactionTotals.deposits} icon={IncomeIcon} />
+        <Card title="withdraws" amount={(transactionTotals.withdraws*(-1))} icon={ExpenseIcon} />
+        <Card title="balance" amount={transactionTotals.total} icon={TotalIcon} />
       </section>
       <section>
         <TransactionsList />
