@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+@import '../../styles/common.module.scss';
+
+.header-container {
+  max-width: 1120px;
+  height: 4rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  button {
+    border: none;
+    background: transparent;
+
+    img {
+      height: 1.601875rem;
+    }
+  }
+
+  @media(min-width: 1024px) {
+    height: 6.5625rem;
+    padding: 0 13.1875rem;
+  
+    button img {
+      height: 2rem;
+    }
+  }
+}

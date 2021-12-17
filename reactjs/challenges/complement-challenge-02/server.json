@@ -1,0 +1,36 @@
+{
+  "foods": [
+    {
+      "id": 1,
+      "name": "Barbecue",
+      "description": "Macarrão ao molho branco, fughi e cheiro verde das montanhas",
+      "price": "19.99",
+      "available": true,
+      "image": "https://picsum.photos/400"
+    },
+    {
+      "id": 2,
+      "name": "Ao molho",
+      "description": "Macarrão ao molho branco, fughi e cheiro verde das montanhas",
+      "price": "22.50",
+      "available": true,
+      "image": "https://picsum.photos/400"
+    },
+    {
+      "id": 3,
+      "name": "Ao molho",
+      "description": "Macarrão ao molho branco, fughi e cheiro verde das montanhas",
+      "price": "19.90",
+      "available": true,
+      "image": "https://picsum.photos/400"
+    },
+    {
+      "image": "https://picsum.photos/400",
+      "name": "Moda japonesa",
+      "price": "155.99",
+      "description": "Uma iguaria japonesa.",
+      "available": true,
+      "id": 4
+    }
+  ]
+}

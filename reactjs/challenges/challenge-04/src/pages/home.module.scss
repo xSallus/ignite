@@ -1,0 +1,29 @@
+@charset "UTF-8";
+@import '../styles/common.module.scss';
+
+.content-container {
+  max-width: 1120px;
+  min-height: calc(100vh - 4rem);
+
+  margin: 0 auto;
+  padding: 1rem 1rem 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+
+  button {
+    padding: 1rem 0.5rem;
+    background: rgba(0,0,0,0);
+    border-width: 0;
+    color: $highlight;
+    margin-top: 3rem;
+  }
+
+  @media(min-width: 1024px) {
+    min-height: calc(100vh - 6.5625rem);
+    padding: 1rem 13.1875rem 0;
+  }
+}

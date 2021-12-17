@@ -1,0 +1,39 @@
+@charset "UTF-8";
+@import './common.module.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: $background;
+
+  min-height: 100vh;
+  width: 100vw;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+img {
+  width: auto;
+}
+
+button, a {
+  font-family: 'Inter', sans-serif;
+}
+
+button:hover {
+  filter: brightness(0.8) blur(0.2);
+}
+
+.utterances, .utterances-frame, .react-utterences {
+  width: 100%;
+}
