@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Button, Stack, useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { api } from '../../services/api';
@@ -11,10 +12,6 @@ interface FormAddImageProps {
   closeModal: () => void;
 }
 
-type OnChangeFunctionHandler = (
-  event: ChangeEvent<HTMLInputElement>
-) => Promise<boolean | void>;
-
 export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const [imageUrl, setImageUrl] = useState('');
   const [localImageUrl, setLocalImageUrl] = useState('');
@@ -22,51 +19,71 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
   const formValidations = {
     image: {
-      // TODO LESS THAN 10 MB AND ACCEPTED FORMATS VALIDATIONS
-      required: true,
+      // TODO: REQUIRED, LESS THAN 10 MB AND ACCEPTED FORMATS VALIDATIONS
     },
     title: {
-      required: true,
-      minLength: 4,
-      maxLength: 10,
+      // TODO: REQUIRED, MIN AND MAX LENGTH VALIDATIONS
     },
     description: {
-      required: true,
-      minLength: 10,
+      // TODO: REQUIRED, MAX LENGTH VALIDATIONS
     },
   };
 
   const queryClient = useQueryClient();
   const mutation = useMutation(
-    // TODO MUTATION API POST REQUEST,
+    // TODO: MUTATION API POST REQUEST,
     {
-      // TODO ONSUCCESS MUTATION
+      // TODO: ONSUCCESS MUTATION
     }
   );
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-    setError,
-    trigger,
-  } = useForm();
+  const { register, handleSubmit, reset, formState, setError, trigger } =
+    useForm();
+  const { errors } = formState;
 
   const onSubmit = async (data: Record<string, unknown>): Promise<void> => {
+    const emptyState = '';
     try {
-      // TODO SHOW ERROR TOAST IF IMAGE URL DOES NOT EXISTS
-      // TODO EXECUTE ASYNC MUTATION
-      // TODO SHOW SUCCESS TOAST
-    } catch {
-      // TODO SHOW ERROR TOAST IF SUBMIT FAILED
-    } finally {
-      // TODO CLEAN FORM, STATES AND CLOSE MODAL
-    }
-  };
+      const newData = {
+        ...data,
+        url: imageUrl,
+      };
 
-  const handleChange: OnChangeFunctionHandler = async e => {
-    console.log(e.target.value);
+      await api.post('http://localhost:3000/api/images', newData);
+
+      if (!imageUrl.length) {
+        toast({
+          status: 'error',
+          title: 'Imagem nao adicionada',
+          description:
+            'E preciso adicionar e aguardar o upload da imagem antes de realizar o cadastro',
+          duration: 3000,
+          isClosable: false,
+        });
+        return;
+      }
+      // TODO: EXECUTE ASYNC MUTATION
+      toast({
+        status: 'success',
+        title: 'Imagem cadastrada',
+        description: 'Sua imagem foi cadastrada com sucesso',
+        duration: 3000,
+        isClosable: false,
+      });
+    } catch {
+      toast({
+        status: 'error',
+        title: 'Falha no cadastro',
+        description: 'Ocorreu um erro ao cadastrar a sua imagem',
+        duration: 3000,
+        isClosable: false,
+      });
+    } finally {
+      reset();
+      setImageUrl(emptyState);
+      setLocalImageUrl(emptyState);
+      closeModal();
+    }
   };
 
   return (
@@ -78,31 +95,31 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
           setLocalImageUrl={setLocalImageUrl}
           setError={setError}
           trigger={trigger}
-          onChange={handleChange}
-          name="image"
-          // TODO SEND IMAGE ERRORS
-          // TODO REGISTER IMAGE INPUT WITH VALIDATIONS
+          // TODO: SEND IMAGE ERRORS
+          // TODO: REGISTER IMAGE INPUT WITH VALIDATIONS
+          {...register('image')}
         />
 
         <TextInput
           placeholder="Título da imagem..."
-          name="title"
-          // TODO SEND TITLE ERRORS
-          // TODO REGISTER TITLE INPUT WITH VALIDATIONS
+          // TODO: SEND TITLE ERRORS
+          // TODO: REGISTER TITLE INPUT WITH VALIDATIONS
+          {...register('title')}
         />
 
         <TextInput
           placeholder="Descrição da imagem..."
-          name="description"
-          // TODO SEND DESCRIPTION ERRORS
-          // TODO REGISTER DESCRIPTION INPUT WITH VALIDATIONS
+          // TODO: SEND DESCRIPTION ERRORS
+          // TODO: REGISTER DESCRIPTION INPUT WITH VALIDATIONS
+          {...register('description')}
         />
       </Stack>
 
       <Button
+        as="button"
         my={6}
-        isLoading={isSubmitting}
-        isDisabled={isSubmitting}
+        isLoading={formState.isSubmitting}
+        isDisabled={formState.isSubmitting}
         type="submit"
         w="100%"
         py={6}

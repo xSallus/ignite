@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import fauna from 'faunadb';
-import { api } from '../../services/api';
 
 const { query } = fauna;
 const client = new fauna.Client({ secret: process.env.FAUNA_API_KEY });
@@ -82,26 +81,6 @@ export default async function handler(
       .catch(err => {
         return res.status(400).json(err);
       });
-  }
-
-  if (req.method === 'PUT') {
-    const uri = `${process.env.IMGBB_API_ENDPOINT}?key=${process.env.IMGBB_API_KEY}`;
-    const { image } = req.body;
-    console.log(image);
-
-    try {
-      const { data } = await api.post(uri, { image });
-
-      return res.json({
-        results: data,
-      });
-    } catch (err) {
-      return res.status(400).json({
-        fatal: err.message,
-        error: err.stack,
-        headers: err.config.headers,
-      });
-    }
   }
 
   return res.status(405).json({ error: `Method '${req.method}' Not Allowed` });

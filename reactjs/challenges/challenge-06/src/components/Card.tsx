@@ -8,6 +8,8 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
+type HandleViewImageFn = (url: string) => void;
+
 interface Card {
   title: string;
   description: string;
@@ -17,7 +19,7 @@ interface Card {
 
 interface CardProps {
   data: Card;
-  viewImage: (url: string) => void;
+  viewImage: HandleViewImageFn;
 }
 
 export function Card({ data, viewImage }: CardProps): JSX.Element {

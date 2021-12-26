@@ -12,7 +12,9 @@ import {
   useToast,
   Tooltip,
 } from '@chakra-ui/react';
+
 import axios, { AxiosRequestConfig, CancelTokenSource } from 'axios';
+
 import {
   useState,
   SetStateAction,
@@ -22,15 +24,17 @@ import {
   useCallback,
   useEffect,
 } from 'react';
+
 import {
   FieldError,
   FieldValues,
   UseFormSetError,
   UseFormTrigger,
 } from 'react-hook-form';
+
 import { FiAlertCircle, FiPlus } from 'react-icons/fi';
-import { imageToBase64 } from '../../tools/Base64ImageConverter';
-import { api } from '../../services/api';
+
+import { uploadImage } from '../../services/upload';
 
 export interface FileInputProps {
   name: string;
@@ -45,7 +49,8 @@ export interface FileInputProps {
   trigger: UseFormTrigger<FieldValues>;
 }
 
-// const boillerplate = 'https://github.com/xSallus.png';
+const endpoint = 'https://api.imgbb.com/1/upload';
+
 const FileInputBase: ForwardRefRenderFunction<
   HTMLInputElement,
   FileInputProps
@@ -84,12 +89,17 @@ const FileInputBase: ForwardRefRenderFunction<
       await onChange(event);
       trigger('image');
 
+      const formData = new FormData();
+
+      formData.append(event.target.name, event.target.files[0]);
+      formData.append('key', process.env.NEXT_PUBLIC_IMGBB_API_KEY);
+
       const { CancelToken } = axios;
       const source = CancelToken.source();
       setCancelToken(source);
 
       const config = {
-        // headers: { 'content-type': 'multipart/form-data' },
+        headers: { 'content-type': 'multipart/form-data' },
         onUploadProgress: (e: ProgressEvent) => {
           setProgress(Math.round((e.loaded * 100) / e.total));
         },
@@ -97,20 +107,10 @@ const FileInputBase: ForwardRefRenderFunction<
       } as AxiosRequestConfig;
 
       try {
-        imageToBase64(event.target.files[0], async result => {
-          const image = result.toString() ?? (result as string);
+        const response = await uploadImage({ formData, endpoint, config });
 
-          setImageUrl(image);
-          setLocalImageUrl(image);
-
-          const response = await api.put(
-            'api/images',
-            {
-              image: image.replace('data:image/svg+xml;base64,', ''),
-            },
-            config
-          );
-        });
+        setImageUrl(response.data.url);
+        setLocalImageUrl(URL.createObjectURL(event.target.files[0]));
       } catch (err) {
         if (err?.message === 'Cancelled image upload.') return;
 

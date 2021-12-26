@@ -28,7 +28,7 @@ export function ModalAddImage({
       <ModalContent bgColor="pGray.900">
         <ModalHeader fontSize="4xl">Nova imagem</ModalHeader>
 
-        <ModalCloseButton />
+        <ModalCloseButton as="button" />
 
         <ModalBody px={60}>
           <FormAddImage closeModal={handleCloseModal} />

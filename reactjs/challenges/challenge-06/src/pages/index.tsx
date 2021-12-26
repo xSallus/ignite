@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Box } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { useInfiniteQuery } from 'react-query';
@@ -7,14 +8,12 @@ import { CardList } from '../components/CardList';
 import { api } from '../services/api';
 import { Loading } from '../components/Loading';
 import { Error } from '../components/Error';
+import { Card } from '../components/CardList';
 
-interface Card {
-  title: string;
-  description: string;
-  url: string;
-  ts: number;
-  id: string;
-}
+type QueryData = {
+  data: Card[];
+  after: any;
+};
 
 export default function Home(): JSX.Element {
   const {
@@ -24,40 +23,35 @@ export default function Home(): JSX.Element {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery<Card[]>(
+  } = useInfiniteQuery(
     'images',
     async () => {
-      const response = await api.get('api/images');
-      const results: Card[] = response.data.data ?? [];
-      return results;
+      const res = await api.get<QueryData>('http://localhost:3000/api/images');
+      return res.data;
     }
-    // TODO GET AND RETURN NEXT PAGE PARAM
+    // TODO: GET AND RETURN NEXT PAGE PARAM
   );
 
-  const formattedData = useMemo<Card[]>(() => {
-    // TODO FORMAT AND FLAT DATA ARRAY
-    const results: Card[] = data?.pages[0] ?? [];
-    return results;
+  const formattedData = useMemo(() => {
+    const flattenedQueryArray = data?.pages[0].data;
+    return flattenedQueryArray;
   }, [data]);
-
-  if (isLoading && !isFetchingNextPage) {
-    return <Loading />;
-  }
 
   if (isError) {
     return <Error />;
   }
 
+  if (isLoading && !isFetchingNextPage) {
+    return <Loading />;
+  }
+
   return (
     <>
       <Header />
+
       <Box maxW={1120} px={20} mx="auto" my={20}>
         <CardList cards={formattedData} />
-        {hasNextPage && (
-          <Button as="button" type="button" onClick={() => fetchNextPage()}>
-            Carregar mais
-          </Button>
-        )}
+        {hasNextPage && <Button as="button">Carregar mais</Button>}
       </Box>
     </>
   );
