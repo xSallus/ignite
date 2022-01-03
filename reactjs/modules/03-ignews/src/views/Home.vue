@@ -8,15 +8,18 @@
 </template>
 
 <script>
+import store from '@/store';
 
 export default {
   name: 'Home',
+  mounted: () => {
+    store.dispatch('get_posts');
+  },
   computed: {
     price() {
       return 4.91
     }
-  },
-  components: {}
+  }
 }
 </script>
 

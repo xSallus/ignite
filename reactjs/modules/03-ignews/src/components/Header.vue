@@ -10,16 +10,16 @@
         <router-link to="/posts">Posts</router-link>
         <router-link to="/about">About</router-link>
       </ul>
-      <AuthButton :session="isLoggedIn" />
+      <AuthButton />
     </div>
 
-    <div v-if="!isHidden" id="nav" class="mobile">
+    <div v-bind:class="{ 'hide': isHidden }" id="nav" class="mobile">
       <ul>
         <router-link to="/">Home</router-link>
         <router-link to="/posts">Posts</router-link>
         <router-link to="/about">About</router-link>
       </ul>
-      <AuthButton :session="isLoggedIn" />
+      <AuthButton />
       <button id="btn-close" @click="toggleMenu">.</button>
     </div>
   </header>
@@ -34,7 +34,6 @@ export default {
     return {
       isHidden: true,
       title: '_igNews_',
-      isLoggedIn: false,
     }
   },
   methods: {
@@ -184,9 +183,15 @@ header {
       left: 0;
 
       background: $gray400;
-      animation: SlideIn 2s 1 ease;
       align-items: center;
       justify-content: center;
+
+      transition: all 2s ease;
+      transform: translateY(0);
+
+      &.hide {
+        transform: translateY(-200%);
+      }
 
       #btn-login {
         &:active {
