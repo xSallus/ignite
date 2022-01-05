@@ -53,11 +53,21 @@ export default createStore({
         ctx.commit('log_out')
         return;
       }
-
+      
       ctx.commit('log_in');
       return;
     }
   },
-  modules: {
-  }
+  getters: {
+    getUser: (state) => {
+      return state.session.user;
+    },
+    getAuthState: (state) => {
+      return state.session.isLoggedIn;
+    },
+    getPosts: (state) => {
+      return state.posts;
+    },
+  },
+  modules: {}
 })

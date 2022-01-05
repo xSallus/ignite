@@ -11,7 +11,7 @@ import store from '@/store';
 export default {
   name: 'Posts',
   data: () => {
-    const posts = store.state.posts;
+    const posts = store.getters.getPosts;
     return {
       posts
     };
@@ -32,16 +32,12 @@ export default {
   justify-content: flex-start;
   align-items: center;
 
-  gap: 1.8rem;
-
-  color: $white;
-
   @media(min-width:860px) {
-    color: yellow;
+    color: $white;
   }
 
   @media(max-width:1024px) {
-    color: red;
+    color: $green;
   }
 
   @media(min-width:1024px) {

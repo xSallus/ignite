@@ -1,7 +1,7 @@
 <template>
     <button v-if="isLoggedIn" id="btn-login" @click="handleAuth">
       <img src="../assets/images/github-icon-green.svg" alt="github" />
-      <span>{{ user }}</span>
+      <span>{{ user?.username }}</span>
     </button>
     <button v-else id="btn-login" @click="handleAuth">
       <img src="../assets/images/github-icon-yellow.svg" alt="github" />
@@ -10,13 +10,14 @@
 </template>
 
 <script>
+import { reactive } from 'vue';
 import store from '@/store';
 
 export default {
   name: 'AuthButton',
   data: ()=>({
-    isLoggedIn: store.state.session.isLoggedIn,
-    user: store.state.session.user.username
+    isLoggedIn: reactive(store.getters.getAuthState),
+    user: reactive(store.getters.getUser)
   }),
   methods: {
     handleAuth() {
