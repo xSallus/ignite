@@ -26,7 +26,7 @@ Open the folder of the desired project and follow the instructions in the readme
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 |                  Blog                  |                     [Readme](https://github.com/xSallus/ignite/tree/react/reactjs/challenges/challenge-04)                    |  
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-|                GoFood              |                     [Readme](https://github.com/xSallus/ignite/tree/react/reactjs/challenges/complement-challenge-02)                    |  
+|                GoRestaurant              |                     [Readme](https://github.com/xSallus/ignite/tree/react/reactjs/challenges/complement-challenge-02)                    |  
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 |               DT Money           |                     [Readme](https://github.com/xSallus/ignite/tree/react/reactjs/modules/02-dt-money)                    |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
