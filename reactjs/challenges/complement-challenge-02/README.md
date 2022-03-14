@@ -15,6 +15,8 @@ $ yarn dev
 
 [✓] See a list of foods
 
+[✓] Add new foods
+
 [✓] Toggle availability of each food
 
 > See live footage [here](#).
