@@ -25,6 +25,6 @@ $ yarn dev
 
 [✓] Calculate subtotal for all products in cart
 
-[✓] Prevent add items that doesn't exists or doesn't has enough quantity
+[✓] Prevent adding items that doesn't exists or doesn't has enough quantity
 
 > See live footage [here](#).
