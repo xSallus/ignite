@@ -22,7 +22,7 @@ Open the folder of the desired project and follow the instructions in the readme
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 |          Product Cart           |                     [Readme](https://github.com/xSallus/ignite/tree/react/reactjs/challenges/challenge-03)                    |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-|                  Igflix                 |                     [Readme](https://github.com/xSallus/ignite/tree/react/reactjs/challenges/challenge-02)                    |  
+|                  WatchMe                 |                     [Readme](https://github.com/xSallus/ignite/tree/react/reactjs/challenges/challenge-02)                    |  
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 |                  Blog                  |                     [Readme](https://github.com/xSallus/ignite/tree/react/reactjs/challenges/challenge-04)                    |  
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
