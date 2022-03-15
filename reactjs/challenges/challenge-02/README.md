@@ -1,4 +1,4 @@
-# **IgFlix**
+# **WatchMe**
 Discover new movies, and see it's description.
 
 ## Setup and run
