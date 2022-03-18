@@ -1,0 +1,62 @@
+@import "styles/colors.scss";
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: 20rem;
+  width: 100%;
+
+  border: none;
+  background: $background-button;
+  padding: 1.1875rem 2rem;
+  border-radius: 0.25rem;
+
+  font-size: 1.125rem;
+  color: $white;
+
+  position: relative;
+  transition: all 200ms ease;
+
+  & + button {
+    margin-top: 1rem;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+	@media(min-width: 1024px){
+		&:hover {
+			background: $background-button2;
+
+      &::after {
+        content: "";
+        background: $yellow;
+        height: 2px;
+        width: 100%;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+	  }
+	}
+}
+
+.selected {
+	background: $background-button2;
+	color: $yellow;
+
+	&::after {
+    content: "";
+    background: $yellow;
+    height: 2px;
+    width: 100%;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

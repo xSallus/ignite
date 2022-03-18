@@ -1,0 +1,72 @@
+@import "styles/colors.scss";
+
+.burger {
+  width: 40px;
+	height: 40px;
+
+	border: none;
+	background: transparent;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	margin-top: 1rem;
+
+	@media(min-width: 861px) {
+		display: none;
+	}
+}
+
+.bar {
+	width: inherit;
+	height: 8px;
+
+	background: $white;
+	border-radius: 10px;
+	position: relative;
+
+	color: transparent;
+	transition: all 0.25s cubic-bezier(0.7,0.7, 0.7, 0.7);
+
+	&::after {
+		content: "";
+
+		width: inherit;
+		height: inherit;
+		background: $white;
+		border-radius: inherit;
+
+	   transform: translateY(200%) translateX(-50%);
+	   transform-origin: 50% 50%;
+		position: absolute;
+		transition: all 0.75s cubic-bezier(0.7,0.7, 0.7, 0.7);
+	}
+
+	&::before {
+		content: "";
+
+		width: inherit;
+		height: inherit;
+		background: $white;
+		border-radius: inherit;
+
+		transform: translateY(-200%) translateX(-50%);
+		transform-origin: 50% 50%;
+		position: absolute;
+		transition: all 0.75s cubic-bezier(0.7,0.7, 0.7, 0.7);
+	}
+}
+
+.active {
+	background: transparent;
+
+	&::before {
+		transform: translate(-2rem, 0) rotate(45deg);
+	}
+
+	&::after {
+		transform: translate(-2.2rem, 0) rotate(-45deg);
+	}
+}

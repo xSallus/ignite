@@ -1,0 +1,76 @@
+@import "styles/colors.scss";
+
+.container {
+  width: 65vw;
+	
+  margin: 0 auto;
+
+	@media (max-width: 860px) {
+		width: 100vw;
+	}
+
+	@media (min-width: 1024px) {
+		height: 100vh;
+		overflow-y: scroll;
+		width: 100%;
+	}
+}
+
+.header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	
+	padding: 0 1.5rem;
+
+  span {
+		color: $white;
+
+		&.category {
+			display: flex;
+			gap: 0.5rem;
+			font-size: 2.25rem;
+			font-weight: 600;
+			color: $gray;
+		}
+
+		& > span {
+			color: $yellow;
+		}
+
+		@media(max-width: 860px) {
+			font-size: 1.75rem;
+			flex-direction: column;
+			gap: 1rem;
+		}
+  }
+
+	@media (min-width: 1024px) {
+		width: 100%;
+		padding: 2.5rem 4.1rem;
+	}
+}
+
+.main {
+  width: 100%;
+  margin-top: 5.625rem;
+	padding-bottom: 1.5rem;
+
+	@media(max-width: 860px) {
+		margin-top: 2.5rem;
+	}
+}
+
+.moviesList {
+  width: 100%;
+  gap: 4.75rem;
+  list-style: none;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+  @media(max-width: 860px) {
+    gap: 1.5rem;
+  }
+}

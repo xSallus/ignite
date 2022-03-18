@@ -1,17 +1,20 @@
-import { Button } from './Button';
-import { SideBarProps } from "../@types";
+import { Button } from 'components/button';
+import { SideBarProps } from "@types";
+import { useMovies } from 'contexts/movies';
 
-import '../styles/sidebar.scss';
+import style from './style.module.scss';
 
 export function SideBar({genres, handleClick, selected}: SideBarProps) {
-  // Complete aqui
+  const { isOpen } = useMovies()
 
   return (
-    <nav className="sidebar">
+    <nav
+			className={`${style.sidebar} ${isOpen ? '' : style.hidden}`}
+		>
         <span>Watch<p>Me</p></span>
 
         <div className="buttons-container">
-          {genres.map(genre => (
+          {genres?.map(genre => (
             <Button
               key={String(genre.id)}
               title={genre.title}

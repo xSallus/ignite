@@ -23,4 +23,6 @@ $ yarn dev
 
 [✓] See details for given movie
 
+[✓] Custom mocked JSON server with API routes
+
 > See live footage [here](#).

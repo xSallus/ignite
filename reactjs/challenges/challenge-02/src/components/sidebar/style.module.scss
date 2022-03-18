@@ -1,0 +1,58 @@
+@import "styles/colors.scss";
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  width: 35vw;
+
+  padding: 2rem;
+
+  background: $background2;
+
+  > span {
+    margin-bottom: 4.5rem;
+    font-size: 3rem;
+    font-weight: 600;
+    color: $yellow;
+
+    p {
+      display: inline;
+      color: $white;
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+  }
+
+	@media(max-width: 860px) {
+		width: 75vw;
+		height: 100vh;
+
+		position: absolute;
+		z-index:10;
+
+		top: 0;
+		left: 0;
+
+		transform: translateX(0);
+		transition: all 1.25s cubic-bezier(0.7, 0.7, 0.7, 0.7);
+
+	}
+
+	@media(min-width: 861px) {
+    max-width: 24rem;
+	}
+}
+
+.hidden {
+  @media(max-width: 860px) {
+    transform: translateX(-100%);
+  }
+}
