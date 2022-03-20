@@ -57,6 +57,7 @@ describe('Home page', () => {
 
   beforeEach(() => {
     apiMock.reset();
+		jest.useFakeTimers();
 
     queryClient = new QueryClient();
 
@@ -100,7 +101,7 @@ describe('Home page', () => {
   });
 
   it('should be able to render images list', async () => {
-    apiMock.onGet('/api/images').reply(200, {
+    apiMock.onGet('http://localhost:3000/api/images').reply(200, {
       after: null,
       data: [
         {
@@ -132,7 +133,7 @@ describe('Home page', () => {
   });
 
   it('should be able to view an image', async () => {
-    apiMock.onGet('/api/images').reply(200, {
+    apiMock.onGet('http://localhost:3000/api/images').reply(200, {
       after: null,
       data: [
         {
@@ -162,7 +163,7 @@ describe('Home page', () => {
   });
 
   it('should be able to load more images', async () => {
-    apiMock.onGet('/api/images').replyOnce(200, {
+    apiMock.onGet('http://localhost:3000/api/images').replyOnce(200, {
       after: 'next-cursor',
       data: [
         {
@@ -181,7 +182,7 @@ describe('Home page', () => {
         },
       ],
     });
-    apiMock.onGet('/api/images').replyOnce(200, {
+    apiMock.onGet('http://localhost:3000/api/images').replyOnce(200, {
       after: null,
       data: [
         {
@@ -225,7 +226,7 @@ describe('Home page', () => {
   });
 
   it('should be able to add a new image', async () => {
-    apiMock.onGet('/api/images').replyOnce(200, {
+    apiMock.onGet('http://localhost:3000/api/images').replyOnce(200, {
       after: 'next-cursor',
       data: [
         {
@@ -244,7 +245,7 @@ describe('Home page', () => {
         },
       ],
     });
-    apiMock.onGet('/api/images').replyOnce(200, {
+    apiMock.onGet('http://localhost:3000/api/images').replyOnce(200, {
       after: null,
       data: [
         {
@@ -316,15 +317,15 @@ describe('Home page', () => {
       },
     });
 
-    await screen.findByRole('img', { name: 'Uploaded photo' });
+    await screen.findByRole('img', { alt: 'Uploaded photo' });
     expect(fileInput.files[0]).toStrictEqual(file);
     expect(nameInput).toHaveValue('Rocket League');
     expect(descriptionInput).toHaveValue('Flying forever');
 
     const submitButton = screen.getByRole('button', { name: 'Enviar' });
 
-    apiMock.onPost('/api/images').replyOnce(200);
-    apiMock.onGet('/api/images').replyOnce(200, {
+    apiMock.onPost('http://localhost:3000/api/images').replyOnce(200);
+    apiMock.onGet('http://localhost:3000/api/images').replyOnce(200, {
       after: 'next-cursor',
       data: [
         {
@@ -343,7 +344,7 @@ describe('Home page', () => {
         },
       ],
     });
-    apiMock.onGet('/api/images').replyOnce(200, {
+    apiMock.onGet('http://localhost:3000/api/images').replyOnce(200, {
       after: null,
       data: [
         {

@@ -18,10 +18,14 @@ interface CardsProps {
 type HandleViewImageFn = (url: string) => void;
 
 export function CardList({ cards }: CardsProps): JSX.Element {
-  const { isOpen, onClose } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const [selectedImgUrl, setSelectedImgUrl] = useState('');
-  const handleViewImage: HandleViewImageFn = url => setSelectedImgUrl(url);
+
+  const handleViewImage: HandleViewImageFn = url => {
+		setSelectedImgUrl(url)
+		onOpen()
+	};
 
   return (
     <>

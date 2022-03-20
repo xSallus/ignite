@@ -32,8 +32,21 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const queryClient = useQueryClient();
   const mutation = useMutation(
     // TODO: MUTATION API POST REQUEST,
+		async (data: any) => {
+			await api.post('http://localhost:3000/api/images', data);
+		},
     {
-      // TODO: ONSUCCESS MUTATION
+			onSuccess: () => {
+				toast({
+					status: 'success',
+					title: 'Imagem cadastrada',
+					description: 'Sua imagem foi cadastrada com sucesso',
+					duration: 3000,
+					isClosable: false,    
+				});
+
+				queryClient.invalidateQueries('images')
+			}
     }
   );
 
@@ -49,7 +62,7 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         url: imageUrl,
       };
 
-      await api.post('http://localhost:3000/api/images', newData);
+      //await api.post('http://localhost:3000/api/images', newData);
 
       if (!imageUrl.length) {
         toast({
@@ -63,13 +76,14 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         return;
       }
       // TODO: EXECUTE ASYNC MUTATION
-      toast({
+			await mutation.mutateAsync(newData)
+      /*toast({
         status: 'success',
         title: 'Imagem cadastrada',
         description: 'Sua imagem foi cadastrada com sucesso',
         duration: 3000,
         isClosable: false,
-      });
+      });*/
     } catch {
       toast({
         status: 'error',

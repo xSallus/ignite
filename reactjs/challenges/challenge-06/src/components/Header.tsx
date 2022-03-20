@@ -1,9 +1,12 @@
-import { Box, Flex, Button, useDisclosure, Image } from '@chakra-ui/react';
+import {
+	Box, Flex, Button, useDisclosure, Image, useMediaQuery
+} from '@chakra-ui/react';
 
 import { ModalAddImage } from './Modal/AddImage';
 
 export function Header(): JSX.Element {
   const { onOpen, isOpen, onClose } = useDisclosure();
+	const [isMobileDevice] = useMediaQuery('(max-width:860px)')
 
   return (
     <>
@@ -11,14 +14,14 @@ export function Header(): JSX.Element {
         <Flex
           justifyContent="space-between"
           alignItems="center"
-          maxW={1120}
+          maxW="100vw"
           mx="auto"
           px={20}
           py={6}
         >
           <Image src="logo.svg" h={10} />
           <Button as="button" onClick={() => onOpen()}>
-            Adicionar imagem
+            {isMobileDevice ? '+' : 'Adicionar imagem'}
           </Button>
         </Flex>
       </Box>

@@ -71,9 +71,7 @@ const FileInputBase: ForwardRefRenderFunction<
   const toast = useToast();
   const [progress, setProgress] = useState(0);
   const [isSending, setIsSending] = useState(false);
-  const [cancelToken, setCancelToken] = useState<CancelTokenSource>(
-    {} as CancelTokenSource
-  );
+  const [cancelToken, setCancelToken] = useState<CancelTokenSource>({} as CancelTokenSource);
 
   const handleImageUpload = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
@@ -108,6 +106,14 @@ const FileInputBase: ForwardRefRenderFunction<
 
       try {
         const response = await uploadImage({ formData, endpoint, config });
+				
+				toast({
+					status: 'success',
+					title: 'Uploaded photo',
+					description: 'Sua imagem foi cadastrada com sucesso',
+					duration: 3000,
+					isClosable: false,
+				});
 
         setImageUrl(response.data.url);
         setLocalImageUrl(URL.createObjectURL(event.target.files[0]));
@@ -148,6 +154,7 @@ const FileInputBase: ForwardRefRenderFunction<
       >
         {localImageUrl && !isSending ? (
           <Image
+						as="img"
             w="full"
             h="full"
             src={localImageUrl}
