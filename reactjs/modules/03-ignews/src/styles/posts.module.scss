@@ -1,0 +1,33 @@
+@import './colors.scss';
+
+.posts {
+  height: 85vh;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+	& > h1 {
+		color: $white;
+
+		& > span {
+			transform: rotate(-90deg);
+		}
+	}
+
+  @media(min-width:860px) {
+    color: $white;
+  }
+
+  @media(max-width:1024px) {
+    color: $green;
+  }
+
+  @media(min-width:1024px) {
+    justify-content: center;
+    padding: 3.5rem;
+    gap: 2rem;
+  }
+}

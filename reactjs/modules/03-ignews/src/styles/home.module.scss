@@ -1,0 +1,58 @@
+@charset "UTF-8";
+@import './colors.scss';
+
+.container {
+  height: 85vh;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  gap: 1.8rem;
+
+  background: url('../assets/images/woman.svg') no-repeat;
+  background-position: bottom;
+  color: $white;
+  
+  h1 {
+    font-size: 2.5rem;
+
+    p span {
+      color: $blue;
+    }
+  }
+
+  h2 {
+    font-size: 1rem;
+
+    p {
+      color: $blue;
+    }
+  }
+
+  @media(min-width:860px) {
+    background-size: contain;
+    background-position: 95% 50%;
+  }
+
+  @media(min-width:1024px) {
+    background-position: 85% 50%;
+    justify-content: center;
+    padding: 3.5rem;
+    gap: 2rem;
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+    }
+	}
+}

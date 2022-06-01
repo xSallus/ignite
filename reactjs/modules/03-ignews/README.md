@@ -50,6 +50,6 @@ $ yarn dev
 
 [✓] Use Stripe-Cli to listen to websocket events on Stripe
 
-![](https://raw.githubusercontent.com/xSallus/ignews/main/src/assets/images/woman.svg)
+![.](https://raw.githubusercontent.com/xSallus/ignews/main/src/assets/images/woman.svg)
 
 > See live footage [here](#).

@@ -1,0 +1,36 @@
+@import "styles/colors.scss";
+
+.btn-login {
+	padding: 0.2rem 1rem;
+	width: 9rem;
+	height: 2.25rem;
+	background: $gray600;
+	color: $white;
+	border-radius: 99px;
+	border: none;    
+	display: flex;    
+	align-items: center;  
+	justify-content: space-between;  
+
+	transition: border-color 0.25s ease;
+
+	&:active {
+		border: 1px solid $yellow;      
+	}
+
+	& span {
+		width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		line-height: 100%;
+	}
+
+	@media (min-width:1024px) {
+		border-bottom: 1px solid rgba(0,0,0,1);     
+		height: 2rem;      
+		&:hover {      
+			border-color: $yellow;       
+		}
+	}
+}

@@ -1,0 +1,34 @@
+@import "styles/colors.scss";
+
+.subscribe {
+	width: 10rem;
+	height: 2.5rem;
+	margin-top: 2.5rem;
+
+	background: $yellow;
+	color: $blue-dark;
+
+	font-weight: 600;
+	font-size: 1rem;
+
+	border-style: solid;
+	border-color: $blue-dark;
+	border-width: 0 2px 2px 0;
+	border-radius: 99px;
+
+	transition: all 0.25s ease;
+
+	@media(max-width:1024px) {
+		&:active {
+			background: $green;
+		}
+	}
+
+	@media(min-width:1024px) {
+		border: none;
+
+		&:hover {
+			filter: brightness(0.8);
+		}
+	}
+}
